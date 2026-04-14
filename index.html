@@ -3,105 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Store - Altyn Style</title>
+    <title>DIOR LUXE | ТҮН АЙ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        * {
+        :root { 
+            --gold: #d4af37; 
+            --glass: rgba(255, 255, 255, 0.03); 
+            --dark-bg: #050505; 
+            --glow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            background: var(--dark-bg); 
+            color: white; 
+            scroll-behavior: smooth; 
+        }
+
+        h1, h2, h3, .logo { font-family: 'Playfair Display', serif; }
+
+        header { 
+            height: 80vh; 
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1600');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        .logo { 
+            font-size: clamp(3.5rem, 12vw, 7rem); 
+            letter-spacing: 20px; 
+            text-shadow: 0 0 30px var(--gold);
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
 
-        body {
-            background-color: #000;
-            color: white;
+        nav { 
+            position: sticky; top: 0; background: rgba(5, 5, 5, 0.95); padding: 20px 0; z-index: 1000; 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1); display: flex; justify-content: center; overflow-x: auto;
+        }
+        nav a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 15px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        nav a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .category-title { font-size: 1.8rem; text-align: center; margin: 60px 0 40px; color: var(--gold); text-transform: uppercase; letter-spacing: 6px; }
+
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
+        
+        .card { 
+            background: var(--glass); 
+            border: 1px solid rgba(212, 175, 55, 0.1); 
+            padding: 25px; 
+            text-align: center; 
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Фонове зображення (Hero Section) */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=2000&auto=format&fit=crop'); /* Заміни на фото свого магазину */
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
+        .card:hover { 
+            border-color: var(--gold);
+            box-shadow: var(--glow);
+            transform: translateY(-10px);
+            background: rgba(212, 175, 55, 0.05);
         }
 
-        /* Навігація */
-        header {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .card img { 
+            width: 100%; height: 220px; object-fit: cover; 
+            margin-bottom: 20px; 
+            border-radius: 2px;
+            filter: brightness(0.8);
+            transition: 0.5s;
         }
+        .card:hover img { filter: brightness(1.1); }
+        
+        .card h3 { margin: 15px 0 10px; font-weight: 400; letter-spacing: 2px; font-size: 1.1rem; }
+        .price { color: var(--gold); font-size: 1.2rem; margin-bottom: 25px; font-weight: 500; }
+        
+        .add-btn { 
+            background: transparent; border: 1px solid var(--gold); color: var(--gold); 
+            padding: 12px 35px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .add-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
 
-        .logo-box {
-            border: 2px solid #D4AF37; /* Золотий колір як на фото */
-            padding: 5px 15px;
-            font-weight: bold;
-            font-size: 24px;
-            color: #D4AF37;
-            text-transform: uppercase;
-        }
+        .cart-float { position: fixed; bottom: 30px; right: 30px; background: white; color: black; padding: 18px 35px; font-weight: bold; cursor: pointer; z-index: 1000; letter-spacing: 2px; }
+        #cart-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #0a0a0a; border: 1px solid var(--gold); padding: 40px; z-index: 2000; width: 90%; max-width: 450px; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
 
-        .menu-dots {
-            color: #D4AF37;
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        /* Текстовий блок */
-        h1 {
-            font-size: 3.5rem;
-            color: #D4AF37;
-            margin-bottom: 10px;
-            font-family: 'Times New Roman', serif; /* Для схожості з Altyn Emel */
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            font-style: italic;
-            opacity: 0.9;
-        }
-
-        /* Кнопка */
-        .cta-button {
-            background-color: #D4AF37;
-            color: #000;
-            padding: 15px 40px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
-        .cta-button:hover {
-            background-color: #f1c40f;
-            transform: scale(1.05);
-        }
+        .info-footer { text-align: center; padding: 80px 20px; border-top: 1px solid rgba(212, 175, 55, 0.1); margin-top: 100px; background: #030303; }
+        .contact-link { color: var(--gold); text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-box">AE</div> <div class="menu-dots">⋮</div>
-    </header>
+<header>
+    <div class="logo">DIOR</div>
+    <p style="letter-spacing: 8px; opacity: 0.6; text-transform: uppercase;">Premium Restaurant & Lounge</p>
+</header>
 
-    <section class="hero">
-        <h1>Tech Gold</h1>
-        <p>Сапа мен технология үйлескен жер</p>
-        <a href="#" class="cta-button">Тапсырыс беру</a>
-    </section>
+<nav>
+    <a href="#list-food">Тағамдар</a>
+    <a href="#list-lemonade">Лимонадтар</a>
+    <a href="#list-salad">Салаттар</a>
+    <a href="#list-doner">Донер</a>
+    <a href="#list-burger">Бургерлер</a>
+</nav>
 
+<div class="cart-float" onclick="toggleCart()">
+    🛒 СЕБЕТ: <span id="total-price">0</span> ₸
+</div>
+
+<div id="cart-modal">
+    <h2 style="color: var(--gold); text-align: center; text-transform: uppercase; letter-spacing: 4px;">Тапсырыс</h2>
+    <div id="cart-items" style="margin: 30px 0; max-height: 300px; overflow-y: auto;"></div>
+    <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 30px; font-size: 1.2rem;">
+        <span>ЖИЫНЫ:</span> <span id="modal-total">0</span> ₸
+    </div>
+    <button onclick="alert('Тапсырыс қабылданды! Мекен-жай: Қызылорда, Абылай хан')" style="width:100%; background:var(--gold); color:black; border:none; padding:18px; cursor:pointer; font-weight:bold; letter-spacing:2px;">KASPI PAY ТӨЛЕУ</button>
+    <p onclick="toggleCart()" style="text-align:center; cursor:pointer; margin-top:25px; font-size:0.75rem; opacity:0.5; letter-spacing:3px;">[ ЖАБУ ]</p>
+</div>
+
+<div class="container">
+    <h2 id="list-food" class="category-title">Таңдаулы тағамдар</h2>
+    <div class="menu-grid" id="food-list"></div>
+
+    <h2 id="list-lemonade" class="category-title">Лимонадтар</h2>
+    <div class="menu-grid" id="lemonade-list"></div>
+
+    <h2 id="list-salad" class="category-title">Салаттар</h2>
+    <div class="menu-grid" id="salad-list"></div>
+
+    <h2 id="list-doner" class="category-title">Донер</h2>
+    <div class="menu-grid" id="doner-list"></div>
+
+    <h2 id="list-burger" class="category-title">Бургерлер</h2>
+    <div class="menu-grid" id="burger-list"></div>
+</div>
+
+<div class="info-footer">
+    <p>МЕКЕН-ЖАЙЫ: ҚЫЗЫЛОРДА, АБЫЛАЙ ХАН</p>
+    <p>БАЙЛАНЫС: <a href="tel:777777777" class="contact-link">777777777</a></p>
+    <p style="margin-top: 50px; font-size: 0.6rem; opacity: 0.3;">© 2026 DIOR LUXE. КУРЬЕРДІ КҮТІҢІЗ.</p>
+</div>
+
+<script>
+    let cart = [];
+    let total = 0;
+
+    const products = [
+        {cat: 'food', name: 'Рибай Стейк', price: 9500, img: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500'},
+        {cat: 'food', name: 'Лосось Гриль', price: 7200, img: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500'},
+        {cat: 'food', name: 'Пештегі Дорама', price: 5800, img: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=500'},
+        {cat: 'food', name: 'Паста Карбонара', price: 3800, img: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?w=500'},
+        {cat: 'food', name: 'Қозы қабырғасы', price: 8500, img: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=500'},
+        {cat: 'food', name: 'Французша ет', price: 4200, img: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500'},
+
+        {cat: 'lemonade', name: 'Жалбызды Мохито', price: 1800, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400'},
+        {cat: 'lemonade', name: 'Жидек миксі', price: 2200, img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400'},
+        // Тропикалық микс суреті жаңартылды
+        {cat: 'lemonade', name: 'Тропикалық микс', price: 2100, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500'},
+        
+        {cat: 'salad', name: 'Цезарь тауықпен', price: 3200, img: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400'},
+        {cat: 'salad', name: 'Авокадо салаты', price: 3500, img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400'},
+        // Грек салаты суреті жаңартылды
+        {cat: 'salad', name: 'Грек салаты', price: 2800, img: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500'},
+
+        {cat: 'doner', name: 'Сиыр Донер', price: 2200, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400'},
+        {cat: 'doner', name: 'Тауық Донер', price: 1900, img: 'https://images.unsplash.com/photo-1561651823-34feb02250e4?w=400'},
+        // Ащы Донер суреті жаңартылды
+        {cat: 'doner', name: 'Ащы Донер', price: 2100, img: 'https://images.unsplash.com/photo-1644704170910-a0cdf183649b?w=500'},
+
+        {cat: 'burger', name: 'Dior Burger', price: 3500, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400'},
+        {cat: 'burger', name: 'BBQ Burger', price: 3800, img: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400'},
+        {cat: 'burger', name: 'Double Cheese', price: 4200, img: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=500'}
+    ];
+
+    function init() {
+        products.forEach(p => {
+            const html = `<div class="card"><img src="${p.img}"><h3>${p.name}</h3><div class="price">${p.price.toLocaleString()} ₸</div><button class="add-btn" onclick="addToCart('${p.name}', ${p.price})">Қосу +</button></div>`;
+            const section = document.getElementById(p.cat + '-list');
+            if(section) section.innerHTML += html;
+        });
+    }
+
+    function addToCart(name, price) {
+        cart.push({name, price});
+        total += price;
+        updateUI();
+    }
+
+    function updateUI() {
+        document.getElementById('total-price').innerText = total.toLocaleString();
+        document.getElementById('modal-total').innerText = total.toLocaleString();
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = cart.map(item => `<div class="cart-item"><span>${item.name}</span><span style="color:var(--gold);">${item.price.toLocaleString()} ₸</span></div>`).join('');
+    }
+
+    function toggleCart() {
+        const modal = document.getElementById('cart-modal');
+        modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
+    }
+
+    init();
+</script>
 </body>
 </html>
